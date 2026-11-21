@@ -1,17 +1,176 @@
-json
-{
-  "name": "Africa App X - Super App IA & Business",
-  "short_name": "Africa App X",
-  "start_url": "./index.html",
-  "display": "standalone",
-  "background_color": "#0F172A",
-  "theme_color": "#008751",
-  "icons": [
-    {
-      "src": "data:image/svg+xml,%3Csvg xmlns='http://w3.org' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%230F172A'/%3E%3Cpolygon points='256,40 460,155 460,357 256,472 52,357 52,155' fill='none' stroke='%23FCD116' stroke-width='28'/%3E%3Cpath d='M165 165 L347 347 M347 165 L165 347' stroke='%23008751' stroke-width='42' stroke-linecap='round'/%3E%3C/svg%3E",
-      "sizes": "512x512",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Africa App X - Super App IA & Business</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#008751">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://w3.org' viewBox='0 0 80 85'%3E%3Cpolygon points='40,5 75,25 75,60 40,80 5,60 5,25' fill='%230F172A' stroke='%23FCD116' stroke-width='5'/%3E%3Cpath d='M25 26 L55 58 M55 26 L25 58' stroke='%23008751' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --primary: #008751;
+      --gold: #FCD116;
+      --red: #E8112D;
+      --dark: #0F172A;
+      --card: #1E293B;
+      --text: #F8FAFC;
     }
-  ]
-}
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body { background-color: var(--dark); color: var(--text); line-height: 1.5; padding-bottom: 40px; }
+    header { background: #090D16; padding: 15px 5%; border-bottom: 2px solid var(--gold); position: sticky; top: 0; z-index: 100; }
+    .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .brand h1 { font-size: 1.3rem; letter-spacing: 1px; }
+    .brand span { color: var(--gold); }
+    nav { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tab-btn { background: var(--card); color: var(--text); border: 1px solid #334155; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.85rem; transition: 0.2s; }
+    .tab-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
+    main { max-width: 800px; margin: 20px auto; padding: 0 5%; }
+    .section { display: none; }
+    .section.active { display: block; animation: fadeIn 0.3s; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    h2 { font-size: 1.5rem; margin-bottom: 8px; }
+    .subtitle { color: #94A3B8; margin-bottom: 20px; font-size: 0.95rem; }
+    .chat-box { background: var(--card); border-radius: 12px; padding: 15px; border: 1px solid #334155; }
+    .messages { height: 340px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; padding-right: 5px; }
+    .msg { padding: 12px 15px; border-radius: 12px; max-width: 85%; font-size: 0.95rem; white-space: pre-wrap; }
+    .msg.bot { background: #0F172A; border-left: 4px solid var(--gold); align-self: flex-start; }
+    .msg.user { background: var(--primary); color: white; align-self: flex-end; }
+    .quick-prompts { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 10px; }
+    .chip { background: #0F172A; border: 1px solid #334155; color: var(--gold); padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; white-space: nowrap; cursor: pointer; }
+    .chat-input { display: flex; gap: 8px; }
+    .chat-input input { flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #334155; background: #0F172A; color: white; font-size: 1rem; }
+    .btn-send { background: var(--gold); color: #090D16; border: none; padding: 0 18px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
+    .card { background: var(--card); padding: 20px; border-radius: 12px; border: 1px solid #334155; display: flex; flex-direction: column; justify-content: space-between; }
+    .card.featured { border: 2px solid var(--gold); }
+    .price { font-size: 1.4rem; font-weight: bold; color: var(--gold); margin: 10px 0; }
+    .card ul { list-style: none; margin-bottom: 15px; font-size: 0.9rem; color: #CBD5E1; }
+    .card ul li { margin-bottom: 6px; }
+    .btn-action { width: 100%; padding: 10px; border: none; border-radius: 8px; background: var(--primary); color: white; font-weight: bold; cursor: pointer; }
+    .btn-video { background: var(--red); margin-top: 10px; }
+    .form-card { background: var(--card); padding: 20px; border-radius: 12px; border: 1px solid #334155; }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; margin-bottom: 5px; font-size: 0.9rem; color: #CBD5E1; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #334155; background: #0F172A; color: white; font-size: 0.95rem; }
+    .status-banner { background: rgba(0, 135, 81, 0.2); border: 1px solid var(--primary); padding: 12px; border-radius: 8px; margin-bottom: 15px; display: none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <svg width="36" height="38" viewBox="0 0 80 85">
+      <polygon points="40,5 75,25 75,60 40,80 5,60 5,25" fill="none" stroke="#FCD116" stroke-width="5"/>
+      <path d="M25 26 L55 58 M55 26 L25 58" stroke="#008751" stroke-width="7" stroke-linecap="round"/>
+    </svg>
+    <h1>AFRICA APP <span>X</span></h1>
+  </div>
+  <nav>
+    <button class="tab-btn active" onclick="showTab('ia', this)">Assistant IA</button>
+    <button class="tab-btn" onclick="showTab('tarifs', this)">Entreprises & Tarifs</button>
+    <button class="tab-btn" onclick="showTab('b2b', this)">Investisseurs B2B</button>
+    <button class="tab-btn" onclick="showTab('compte', this)">Compte / Inscription</button>
+  </nav>
+</header>
+
+<main>
+  <section id="ia" class="section active">
+    <h2>Assistant IA Africain — Éducation, Climat, Santé & Économie</h2>
+    <p class="subtitle">Posez n'importe quelle question : l'IA vous répond en temps réel.</p>
+    
+    <div class="chat-box">
+      <div class="quick-prompts">
+        <button class="chip" onclick="quickAsk('Comment prévenir les feux de brousse en Afrique ?')">🔥 Feux de brousse</button>
+        <button class="chip" onclick="quickAsk('Explique-moi comment résoudre une équation du second degré')">📐 Maths</button>
+        <button class="chip" onclick="quickAsk('Quels sont les bons gestes pour le reboisement communautaire ?')">🌳 Reboisement</button>
+        <button class="chip" onclick="quickAsk('Comment lancer une PME rentable en Afrique de l\'Ouest ?')">💼 Affaires</button>
+      </div>
+      <div class="messages" id="messages">
+        <div class="msg bot">Bienvenue sur <strong>Africa App X</strong> ! Je suis votre intelligence artificielle dédiée à l'éducation, l'environnement, la santé et les affaires en Afrique. Posez-moi votre question ci-dessous.</div>
+      </div>
+      <div class="chat-input">
+        <input type="text" id="userInput" placeholder="Écrivez votre question ici..." onkeypress="if(event.key==='Enter') sendMessage()">
+        <button class="btn-send" onclick="sendMessage()">Envoyer</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="tarifs" class="section">
+    <h2>Offres & Abonnements Entreprises</h2>
+    <p class="subtitle">Choisissez le plan adapté à la taille de votre organisation.</p>
+    <div id="planStatus" class="status-banner"></div>
+    <div class="grid">
+      <div class="card">
+        <div>
+          <h3>Grand Public</h3>
+          <div class="price">Gratuit</div>
+          <ul>
+            <li>✓ Assistant IA Éducation & Santé</li>
+            <li>✓ Conseils écologiques & climat</li>
+            <li>✓ Financé par annonces partenaires</li>
+          </ul>
+        </div>
+        <button class="btn-action" onclick="selectPlan('Grand Public (Gratuit)')">Activer ce plan</button>
+      </div>
+      <div class="card">
+        <div>
+          <h3>Moyenne Entreprise</h3>
+          <div class="price">30 000 - 50 000 F</div>
+          <ul>
+            <li>✓ IA gestion & comptabilité</li>
+            <li>✓ Publication d'annonces pro</li>
+            <li>✓ Accès réseau entrepreneurs</li>
+          </ul>
+        </div>
+        <button class="btn-action" onclick="selectPlan('Moyenne Entreprise (30 000 - 50 000 F)')">Souscrire</button>
+      </div>
+      <div class="card featured">
+        <div>
+          <h3>Grande Entreprise</h3>
+          <div class="price">100 000 F</div>
+          <ul>
+            <li>✓ Tout le pack Moyenne Entreprise</li>
+            <li>✓ Salles de réunion vidéo privées</li>
+            <li>✓ Mise en relation investisseurs</li>
+          </ul>
+        </div>
+        <button class="btn-action" onclick="selectPlan('Grande Entreprise (100 000 F)')">Souscrire</button>
+      </div>
+      <div class="card">
+        <div>
+          <h3>Entreprise Pro</h3>
+          <div class="price">450 000 F</div>
+          <ul>
+            <li>✓ IA dédiée sur mesure</li>
+            <li>✓ Intégration robotique & IoT</li>
+            <li>✓ Visibilité prioritaire Afrique</li>
+          </ul>
+        </div>
+        <button class="btn-action" onclick="selectPlan('Entreprise Pro (450 000 F)')">Souscrire</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="b2b" class="section">
+    <h2>Espace Investisseurs & Réunions B2B</h2>
+    <p class="subtitle">Publiez votre projet ou lancez une visioconférence sécurisée instantanée.</p>
+    
+    <div class="form-card" style="margin-bottom: 20px;">
+      <h3>🎥 Salle de Réunion Vidéo Privée</h3>
+      <p style="font-size:0.9rem; color:#CBD5E1; margin: 8px 0 12px;">Démarrez un appel vidéo professionnel avec un partenaire ou investisseur.</p>
+      <div class="form-group">
+        <input type="text" id="roomName" placeholder="Nom de la salle (ex: Projet-Solaire-Togo)">
+      </div>
+      <button class="btn-action btn-video" onclick="startVideoCall()">Lancer l'appel vidéo maintenant</button>
+    </div>
+
+    <div class="form-card">
+      <h3>🤝 Publier un dossier Entrepreneur / Investisseur</h3>
+      <div id="b2bStatus" class="status-banner" style="margin-top:10px;"></div>
+      <form onsubmit="saveB2B(event)" style="margin-top:12px;">
+        <div class="form-group">
+          <label>Nom de l'entreprise ou du projet</label>
+          <input type="text" id="b2bProject" required placeholder="Ex: AgroTech Afrique">
+        </div>
+        <div class="form-group">
