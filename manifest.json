@@ -1,150 +1,16 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Africa App X - Assistant IA Africain, Éducation, Écologie, Santé, Réseau Business B2B et Investisseurs en Afrique.">
-    <link rel="manifest" href="manifest.json">
-    <title>Africa App X - Assistant IA & Réseau Business Africain</title>
-    <style>
-        :root {
-            --bg-dark: #0F171E;
-            --card-bg: #18232E;
-            --green: #008751;
-            --gold: #FCD116;
-            --red: #CE1126;
-            --text-main: #F4F6F8;
-            --text-muted: #9BA8B4;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
-        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; padding-bottom: 40px; }
-        header { padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid var(--gold); background: #0B1117; }
-        .brand { display: flex; align-items: center; gap: 10px; font-size: 1.4rem; font-weight: 800; letter-spacing: 0.5px; }
-        .logo-badge { background: linear-gradient(135deg, var(--green), #005C36); border: 2px solid var(--gold); color: var(--gold); width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 900; }
-        .brand span { color: var(--gold); }
-        .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 15px 20px; max-width: 600px; margin: 0 auto; }
-        .nav-btn { background: var(--card-bg); color: var(--text-main); border: 1px solid #2A3947; padding: 12px 10px; border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: 0.2s; }
-        .nav-btn.active { background: var(--green); border-color: var(--green); color: #fff; }
-        .container { max-width: 600px; margin: 0 auto; padding: 0 20px; }
-        .tab-content { display: none; animation: fade 0.3s ease-in-out; }
-        .tab-content.active { display: block; }
-        @keyframes fade { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-        h1 { font-size: 1.5rem; margin-bottom: 8px; line-height: 1.3; }
-        .subtitle { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; }
-        .ai-welcome { background: var(--card-bg); border-left: 4px solid var(--gold); padding: 16px; border-radius: 10px; margin-bottom: 20px; font-size: 0.95rem; }
-        .search-area { display: flex; flex-direction: column; gap: 10px; }
-        .search-area input { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #2E3F4F; background: #0B1117; color: #fff; font-size: 1rem; }
-        .btn-primary { background: var(--green); color: #fff; border: none; padding: 14px; border-radius: 10px; font-weight: bold; font-size: 1rem; cursor: pointer; width: 100%; }
-        .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-        .chip { background: #22303D; color: var(--gold); padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; cursor: pointer; }
-        #ai-output { margin-top: 18px; background: #132A22; border: 1px solid var(--green); padding: 15px; border-radius: 10px; display: none; font-size: 0.95rem; }
-        .card { background: var(--card-bg); border: 1px solid #2A3947; border-radius: 12px; padding: 18px; margin-bottom: 15px; }
-        .card h3 { color: var(--gold); margin-bottom: 5px; }
-        .price { font-size: 1.3rem; font-weight: bold; color: #4ADE80; margin: 8px 0; }
-        .card ul { margin-left: 20px; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 12px; }
-        .trial-banner { background: var(--red); color: #fff; padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; font-weight: bold; text-align: center; margin-bottom: 15px; }
-        .form-group { margin-bottom: 14px; }
-        .form-group label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 5px; }
-        .form-group input, .form-group select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #2E3F4F; background: #0B1117; color: #fff; }
-    </style>
-</head>
-<body>
-<header>
-    <div class="brand">
-        <div class="logo-badge">X</div>
-        <div>AFRICA APP <span>X</span></div>
-    </div>
-</header>
-<div class="nav-grid">
-    <button class="nav-btn active" onclick="openTab('tab-ia', this)">Assistant IA</button>
-    <button class="nav-btn" onclick="openTab('tab-tarifs', this)">Entreprises & Tarifs</button>
-    <button class="nav-btn" onclick="openTab('tab-b2b', this)">Investisseurs B2B</button>
-    <button class="nav-btn" onclick="openTab('tab-compte', this)">Compte / Inscription</button>
-</div>
-<div class="container">
-    <div id="tab-ia" class="tab-content active">
-        <h1>Assistant IA Africain — Éducation, Climat, Santé & Économie</h1>
-        <p class="subtitle">Posez vos questions sur l'environnement, le reboisement, la santé, l'éducation ou les entreprises africaines.</p>
-        <div class="ai-welcome">
-            Bienvenue sur <strong>Africa App X</strong> ! Comment puis-je vous aider aujourd'hui ?
-            <br><span style="color: var(--text-muted); font-size: 0.85rem;">(Ex : "Comment lutter contre les feux de brousse ?", "Maths", "Santé", "Produits Made in Africa")</span>
-        </div>
-        <div class="search-area">
-            <input type="text" id="questionInput" placeholder="Écrivez votre question ici...">
-            <button class="btn-primary" onclick="repondreIA()">Demander à Africa App X</button>
-        </div>
-        <div class="chips">
-            <span class="chip" onclick="poserQuestion('Comment lutter contre les feux de brousse ?')">🔥 Feux de brousse</span>
-            <span class="chip" onclick="poserQuestion('Importance du reboisement en Afrique')">🌳 Reboisement</span>
-            <span class="chip" onclick="poserQuestion('Aide en mathématiques et éducation')">📐 Éducation & Maths</span>
-            <span class="chip" onclick="poserQuestion('Produits industriels et ménagers Made in Africa')">🏭 Made in Africa</span>
-        </div>
-        <div id="ai-output"></div>
-    </div>
-    <div id="tab-tarifs" class="tab-content">
-        <h1>Classement & Tarifs selon le Standing</h1>
-        <p class="subtitle">Valorisez votre entreprise et vos produits sur Africa App X (en Francs CFA).</p>
-        <div class="card">
-            <h3>Moyenne Entreprise</h3>
-            <div class="price">30 000 F - 50 000 F CFA</div>
-            <ul>
-                <li>Référencement dans l'annuaire intelligent</li>
-                <li>Publication d'annonces et produits locaux</li>
-            </ul>
-            <button class="btn-primary" onclick="alert('Pack Moyenne Entreprise sélectionné !')">Choisir ce standing</button>
-        </div>
-        <div class="card">
-            <h3>Grande Entreprise</h3>
-            <div class="price">100 000 F CFA</div>
-            <ul>
-                <li>Mise en avant publicitaire prioritaire (PUB)</li>
-                <li>Accès aux rencontres B2B et appels vidéo</li>
-            </ul>
-            <button class="btn-primary" onclick="alert('Pack Grande Entreprise sélectionné !')">Choisir ce standing</button>
-        </div>
-        <div class="card" style="border-color: var(--gold);">
-            <h3>Entreprise Pro</h3>
-            <div class="price">450 000 F CFA</div>
-            <ul>
-                <li>Accès direct aux investisseurs et réunions privées</li>
-                <li>Visibilité continentale et internationale maximale</li>
-            </ul>
-            <button class="btn-primary" style="background: var(--gold); color: #000;" onclick="alert('Pack Entreprise Pro sélectionné !')">Choisir ce standing</button>
-        </div>
-    </div>
-    <div id="tab-b2b" class="tab-content">
-        <h1>Rencontres B2B & Investisseurs</h1>
-        <p class="subtitle">Connectez-vous directement avec des fournisseurs, chefs d'entreprise et investisseurs.</p>
-        <div class="card">
-            <h3>🎥 Salle d'Appel Vidéo B2B</h3>
-            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 12px;">
-                Discutez en direct avec des partenaires commerciaux ou présentez votre projet à un investisseur pour obtenir un financement.
-            </p>
-            <button class="btn-primary" onclick="alert('Connexion à la salle d\'appel vidéo B2B sécurisée...')">Lancer un appel vidéo B2B</button>
-        </div>
-        <div class="card">
-            <h3>🤝 Partenariats & Projets à Financer</h3>
-            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 12px;">
-                Publiez votre besoin d'investissement ou trouvez des fournisseurs africains certifiés.
-            </p>
-            <button class="btn-primary" style="background: #22303D;" onclick="alert('Formulaire de publication de projet B2B ouvert.')">Publier une annonce B2B</button>
-        </div>
-    </div>
-    <div id="tab-compte" class="tab-content">
-        <div class="trial-banner">🎁 ESSAI GRATUIT DE 7 JOURS INCLUS</div>
-        <h1>Créer un compte</h1>
-        <p class="subtitle">Inscription réservée aux personnes âgées de 18 ans et plus.</p>
-        <form onsubmit="validerInscription(event)">
-            <div class="form-group">
-                <label>Adresse E-mail :</label>
-                <input type="email" required placeholder="exemple@email.com">
-            </div>
-            <div class="form-group">
-                <label>Mot de passe :</label>
-                <input type="password" required placeholder="Votre mot de passe">
-            </div>
-            <div class="form-group">
-                <label>Pays / Continent :</label>
-                <input type="text" required placeholder="Ex: Togo, Afrique">
-            </div>
-            <div class="form-group">
+{
+  "name": "Africa App X - Super App IA & Business",
+  "short_name": "Africa App X",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0F172A",
+  "theme_color": "#008751",
+  "icons": [
+    {
+      "src": "./image_bad05857.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}
